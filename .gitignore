@@ -1,0 +1,5 @@
+
+.DS_Store
+python/__pycache__/Game.cpython-38.pyc
+*.iml
+*.xml
