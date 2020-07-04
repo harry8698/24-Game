@@ -186,6 +186,7 @@ slider.oninput = function() {
 
 function run() {
   let numbers = Array();
+  answers = new Set();
   for (let i = 0; i < slider.value; i++) {
     let value = parseInt(form[i].value);
     if (isNaN(value)) {
