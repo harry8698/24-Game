@@ -163,20 +163,60 @@ function solve(numList) {
   }
 }
 
-function run(numbers) {
+//https://www.w3schools.com/howto/howto_js_rangeslider.asp
+var slider = document.getElementById("slots");
+var value = document.getElementById("slots_value");
+var form = document.getElementById("form")
+var form_elements = form.children;
+function display(num) {
+  for (let i = 0; i < num; i++) {
+    form_elements[i].style.display = "block";
+  }
+  for (let i = num; i < form_elements.length; i++) {
+    form_elements[i].style.display = "none";
+  }
+  value.innerHTML = num;
+}
+
+display(slider.value);
+
+slider.oninput = function() {
+  display(this.value);
+}
+
+function run() {
+  let numbers = Array();
+  for (let i = 0; i < slider.value; i++) {
+    let value = parseInt(form[i].value);
+    if (isNaN(value)) {
+      alert("Not a number");
+      document.getElementById('count').innerHTML = "";
+      document.getElementById('answers').innerHTML = "";
+      return;
+    }
+    numbers.push(value);
+  }
+
   let numList = Array();
   for (let n of numbers) {
     numList.push(new Expression(n));
   }
   solve(numList);
-}
 
-run([1,1,1,24]);
+  let result = '';
+  for (let x of answers) {
+    result += '<section>' + x + '</section>';
+  }
 
-let result = '';
-for (let x of answers) {
-  result += '<section>' + x + '</section>';
+  let count_element = document.getElementById('count');
+  let answer_element = document.getElementById('answers');
+  let size = answers.size;
+  if (size == 0) {
+    count_element.innerHTML = '<p>There are no answers</p>';
+  } else if (size == 1) {
+    count_element.innerHTML = '<p>There is 1 answer</p>';
+  } else {
+    count_element.innerHTML = '<p>There are ' + answers.size + ' answers</p>';
+  }
+  answer_element.innerHTML = result;
 }
-document.getElementById('count').innerHTML = '<p>There are ' +
-                                              answers.size + ' answers</p>';
-document.getElementById('answers').innerHTML = result;
